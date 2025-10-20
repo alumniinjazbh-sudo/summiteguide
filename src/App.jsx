@@ -21,18 +21,7 @@ import "./App.css";
  */
 
 // --------------------------- Sample Data ---------------------------
-const SAMPLE_ANNOUNCEMENTS = [
-  {
-    id: "a1",
-    text: "🚌 Shuttle departs in 10 minutes from hotel lobby",
-    time: "10:30 AM",
-  },
-  {
-    id: "a2",
-    text: "📸 Group photo at 2 PM in the main hall",
-    time: "2:00 PM",
-  },
-];
+const SAMPLE_ANNOUNCEMENTS = [];
 
 const SAMPLE_AGENDA = {
   "Day 1": [
@@ -215,16 +204,92 @@ const SAMPLE_SPOTS = [
   },
   {
     id: 3,
+    name: "Haji's Cafe",
+    category: "Traditional Breakfast",
+    price: "BHD 4-5",
+    img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgt5fDKi46Z3vJWA_jEXXUp-1_X49g3KI-BqhA7WBsRZPKh4E7u5GD8EuL7uPwcenBeWAmb-URuF2Vbqr9BGObr8p0oduuk3VoGM1z1OuXkzRPsSoZu80Ia9PJJhPajRRctEOwI_-kyGdQ/s1600/DSC05195-003.jpg",
+  },
+  {
+    id: 4,
+    name: "GB Cafe",
+    category: "Cafe",
+    price: "BHD 5-8",
+    img: "https://greenbarcafe.com/wp-content/uploads/2023/11/GB-904x1024.jpg",
+  },
+  {
+    id: 5,
+    name: "Bahrain National Museum",
+    category: "Museum",
+    price: "BHD 1",
+    img: "https://chescadventures.com/wp-content/uploads/2019/03/bahrain-national-museum-entrance.jpg?w=1200",
+  },
+  {
+    id: 6,
+    name: "Marassi Galleria",
+    category: "Mall",
+    price: "Shopping & Dining",
+    img: "https://marassigalleria.bh/wp-content/uploads/2024/02/MG-Opening-Entertainment-1-scaled.jpg",
+  },
+  {
+    id: 7,
+    name: "Al Liwan",
+    category: "Mall",
+    price: "BHD 5-10",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZ7Ki5HQdqNGCVPfhxbiV_wTSu-GIOAEclVQ&s",
+  },
+  {
+    id: 8,
+    name: "Integrale",
+    category: "Cafe",
+    price: "BHD 2-3",
+    img: "https://i.pinimg.com/736x/ed/58/01/ed5801b8ee9fc3c68a3cf07cc2e64b96.jpg",
+  },
+  {
+    id: 9,
+    name: "Saber Ayoub",
+    category: "Tikka",
+    price: "BHD 2-5",
+    img: "https://glebekitchen.com/wp-content/uploads/2016/12/chickentikkakebab.jpg",
+  },
+  {
+    id: 10,
+    name: "Souq Al Manama",
+    category: "Traditional Market",
+    price: "Souveniers & Culture",
+    img: "https://www.airial.travel/_next/image?url=https%3A%2F%2Flh3.googleusercontent.com%2Fplace-photos%2FAJnk2czAO54YiijYQ-KcEVtpa3qStNSnQg2YME2Hhy3DyMN98XWhsT-nlUbVhNHiZP_BpJbBy9CedNefqGA2kphpvn_vl2bI30du9TR8jrRmi_DZYEP08hcw23XdDtTpxu83h8QZvbKy9H6DCIYK2Q%3Ds4800-w400-h400&w=3840&q=75",
+  },
+  {
+    id: 11,
+    name: "Avenues",
+    category: "Mall",
+    price: "Shopping & Dining",
+    img: "https://propertyawards.net/wp-content/uploads/2020/06/shopping.jpg",
+  },
+  {
+    id: 12,
     name: "King Karak",
     category: "Tea",
     price: "BHD 0.1-0.3",
     img: "https://media.istockphoto.com/id/1300484768/photo/traditional-middle-eastern-indian-drink-masala-or-karak-chai-closeup.jpg?s=612x612&w=0&k=20&c=PJFT9vvXSyxMMX5g7WYSlfwnpRFi4oCWhWKTZBV5rb4=",
   },
+  {
+    id: 13,
+    name: "Al Baraha",
+    category: "Traditional Market",
+    price: "Souveniers & Culture",
+    img: "https://www.timeoutbahrain.com/cloud/timeoutbahrain/2025/01/22/jpg-2025-01-22T152434.346-1024x1024.jpeg",
+  },
+  {
+    id: 14,
+    name: "Coco's",
+    category: "Lunch/Dinner",
+    price: "BHD 5-8",
+    img: "https://www.dineoutbahrain.com/sites/default/files/images/restaurants/coco2.jpg",
+  },
 ];
 
 // Currency flags and sample static rates (replace with live rates later)
 const CURRENCIES = [
-  { code: "BHD", label: "Bahraini Dinar", flag: "🇧🇭" },
   { code: "SAR", label: "Saudi Riyal", flag: "🇸🇦" },
   { code: "AED", label: "UAE Dirham", flag: "🇦🇪" },
   { code: "QAR", label: "Qatari Riyal", flag: "🇶🇦" },
@@ -232,6 +297,7 @@ const CURRENCIES = [
   { code: "OMR", label: "Omani Rial", flag: "🇴🇲" },
   { code: "JOD", label: "Jordanian Dinar", flag: "🇯🇴" },
   { code: "EGP", label: "Egyptian Pound", flag: "🇪🇬" },
+  { code: "TND", label: "Tunisian Dinar", flag: "🇹🇳" },
   { code: "USD", label: "US Dollar", flag: "🇺🇸" },
 ];
 
@@ -304,43 +370,100 @@ const EMERGENCY_CONTACTS = [
 
 const PARTICIPANTS = [
   {
-    id: 1,
-    name: "Sarah Al-Ahmad",
+    id: 10,
+    name: "Ahmad Ben Yaghlen",
+    country: "Tunisia",
+    flag: "🇹🇳",
+    photo: "",
+  },
+  {
+    id: 2,
+    name: "Abdulla Abdulaal",
     country: "Bahrain",
     flag: "🇧🇭",
     photo: "",
   },
   {
-    id: 2,
-    name: "Mohammed Al-Saud",
-    country: "Saudi Arabia",
+    id: 14,
+    name: "Anas",
+    country: "Morocco",
+    flag: "🇲🇦",
+    photo: "",
+  },
+  {
+    id: 8,
+    name: "Amr Elsharaby",
+    country: "Egypt",
+    flag: "🇪🇬",
+    photo: "",
+  },
+  {
+    id: 4,
+    name: "Alwalah Fawaz",
+    country: "Bahrain",
+    flag: "🇧🇭",
+    photo: "",
+  },
+  {
+    id: 6,
+    name: "Fatima Turkistani",
+    country: "KSA",
     flag: "🇸🇦",
     photo: "",
   },
   {
+    id: 11,
+    name: "Judy Abdelrhaman",
+    country: "Lebanon",
+    flag: "🇱🇧",
+    photo: "",
+  },
+  {
+    id: 5,
+    name: "Mohammad Ayasi",
+    country: "Palestine",
+    flag: "🇵🇸",
+    photo: "",
+  },
+  {
     id: 3,
-    name: "Fatima Al-Hashemi",
+    name: "Moodhi AlDookhi",
+    country: "Bahrain",
+    flag: "🇧🇭",
+    photo: "",
+  },
+  {
+    id: 7,
+    name: "Muhamad Olabi",
     country: "UAE",
     flag: "🇦🇪",
     photo: "",
   },
   {
-    id: 4,
-    name: "Ahmad Al-Kuwari",
-    country: "Qatar",
-    flag: "🇶🇦",
-    photo: "",
+    id: 1,
+    name: "Nabil Adili",
+    country: "Bahrain",
+    flag: "🇧🇭",
+    photo:
+      "https://res.cloudinary.com/dwqpwi809/image/upload/w_200,h_200,c_fill,q_auto:good/v1760979547/IMG_7427_dx6jqj.jpg",
   },
   {
-    id: 5,
-    name: "Maryam Al-Salem",
+    id: 9,
+    name: "Norah AlRashidi",
     country: "Kuwait",
     flag: "🇰🇼",
     photo: "",
   },
   {
-    id: 6,
-    name: "Omar Al-Said",
+    id: 13,
+    name: "Reema Al-Kuwari",
+    country: "Qatar",
+    flag: "🇶🇦",
+    photo: "",
+  },
+  {
+    id: 12,
+    name: "Sharifa Al Ajmi",
     country: "Oman",
     flag: "🇴🇲",
     photo: "",
@@ -454,17 +577,22 @@ export default function App() {
   // currency
   const [amount, setAmount] = useState(1);
   const [from] = useState("BHD");
+
+  // scroll position tracking
+  const [activeSpotPage, setActiveSpotPage] = useState(0);
+  const [activeParticipantPage, setActiveParticipantPage] = useState(0);
   const staticRates = useMemo(
     () => ({
       BHD: 1,
-      SAR: 10.551,
-      AED: 3.65,
-      QAR: 3.64,
-      KWD: 0.302,
-      OMR: 0.384,
-      JOD: 0.709,
-      EGP: 30.9,
-      USD: 0.265,
+      SAR: 9.9734043,
+      AED: 9.7672872,
+      QAR: 9.6808511,
+      KWD: 0.81355385,
+      OMR: 1.0235428,
+      JOD: 1.8856383,
+      EGP: 126.32828,
+      TND: 7.7875803,
+      USD: 2.6595745,
     }),
     []
   );
@@ -498,7 +626,13 @@ export default function App() {
       // create an announcement for it and ensure it's first
       const agendaAnnouncement = {
         id: `agenda-${nextEvent.id}`,
-        text: `📌 Next: ${nextEvent.title} • ${nextEvent.time}`,
+        text: (
+          <>
+            <b>Next Up 📌:</b>
+            <br />
+            {nextEvent.title}
+          </>
+        ),
         time: nextEvent.time,
       };
 
@@ -759,29 +893,28 @@ export default function App() {
       <header className="header">
         <div className="header-content">
           <div className="logo-section">
-            <div className="logo glass-card">🇧🇭</div>
+            <div className="logo">
+              <img
+                src="https://images.squarespace-cdn.com/content/v1/620d6e97bbc44626186c910f/3e752b2a-9ebb-4a56-a665-2be558bfdc6a/JA+social+symbol.png"
+                alt="Logo"
+              />
+            </div>
             <div>
               <h1 className="title">Summit E-Guide</h1>
               <p>INJAZ Bahrain Alumni Association</p>
               <span>Manama, Bahrain</span>
             </div>
           </div>
-          {/* <button
-            onClick={() => setDark(!dark)}
-            className="theme-toggle glass-card"
-          >
-            {dark ? "🌞" : "🌙"}
-          </button> */}
         </div>
       </header>
 
       {/* Announcements */}
       <section className="section">
-        <h2>Live Announcements</h2>
+        <h2>Live Updates</h2>
         <div className="announcements-scroll">
           {announcements.map((a, i) => (
             <div key={i} className="announcement-card glass-card">
-              <p>{a.text}</p>
+              <div className="announcement-text">{a.text}</div>
               <p className="time">{a.time}</p>
             </div>
           ))}
@@ -827,8 +960,139 @@ export default function App() {
         </div>
       </section>
 
-      {/* Weather */}
+      {/* Participants */}
       <section className="section">
+        <h2>Meet the Leaders</h2>
+        <p className="desc">
+          Get to know the inspiring INJAZ alumni leadership joining us from
+          across the region.
+        </p>
+        <div className="participants-container">
+          <div
+            className="participants-scroll-grid"
+            onScroll={(e) => {
+              const element = e.currentTarget;
+              const scrollLeft = element.scrollLeft;
+              const width = element.clientWidth;
+              const newPage = Math.round(scrollLeft / width);
+              setActiveParticipantPage(newPage);
+            }}
+          >
+            {Array.from({ length: Math.ceil(PARTICIPANTS.length / 4) }).map(
+              (_, pageIndex) => (
+                <div key={pageIndex} className="participants-page">
+                  <div className="participants-grid">
+                    {PARTICIPANTS.slice(pageIndex * 4, (pageIndex + 1) * 4).map(
+                      (participant) => (
+                        <div
+                          key={participant.id}
+                          className="participant-card glass-card"
+                        >
+                          {participant.photo ? (
+                            <img
+                              src={participant.photo}
+                              alt={participant.name}
+                              className="participant-photo"
+                              loading="lazy"
+                              style={{
+                                width: "80px",
+                                height: "80px",
+                                objectFit: "cover",
+                                borderRadius: "50%",
+                              }}
+                            />
+                          ) : (
+                            <div className="participant-photo placeholder">
+                              👤
+                            </div>
+                          )}
+                          <h3 className="participant-name">
+                            {participant.name}
+                          </h3>
+                          <p className="participant-country">
+                            <span>{participant.flag}</span>
+                            <span>{participant.country}</span>
+                          </p>
+                        </div>
+                      )
+                    )}
+                  </div>
+                </div>
+              )
+            )}
+          </div>
+          <div className="scroll-dots">
+            {Array.from({ length: Math.ceil(PARTICIPANTS.length / 4) }).map(
+              (_, index) => (
+                <div
+                  key={index}
+                  className={`dot ${
+                    index === activeParticipantPage ? "active" : ""
+                  }`}
+                ></div>
+              )
+            )}
+          </div>
+        </div>
+        <style>{`
+   
+        `}</style>
+      </section>
+
+      {/* Local Recommendations */}
+      <section className="section">
+        <h2>Keep it Local</h2>
+        <p className="desc">
+          Discover the best spots in Bahrain curated just for you.
+        </p>
+        <div className="spots-container">
+          <div
+            className="spots-scroll"
+            onScroll={(e) => {
+              const element = e.currentTarget;
+              const scrollLeft = element.scrollLeft;
+              const width = element.clientWidth;
+              const newPage = Math.round(scrollLeft / width);
+              setActiveSpotPage(newPage);
+            }}
+          >
+            {Array.from({ length: Math.ceil(spots.length / 2) }).map(
+              (_, pageIndex) => (
+                <div key={pageIndex} className="spots-page">
+                  <div className="spots-pair">
+                    {spots
+                      .slice(pageIndex * 2, (pageIndex + 1) * 2)
+                      .map((s) => (
+                        <div key={s.id} className="spot-card glass-card">
+                          <img src={s.img} alt={s.name} />
+                          <div className="spot-info">
+                            <p className="spot-name">{s.name}</p>
+                            <p className="spot-meta">
+                              {s.category} • {s.price}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                  </div>
+                </div>
+              )
+            )}
+          </div>
+          <div className="scroll-dots">
+            {Array.from({ length: Math.ceil(spots.length / 2) }).map(
+              (_, index) => (
+                <div
+                  key={index}
+                  className={`dot ${index === activeSpotPage ? "active" : ""}`}
+                ></div>
+              )
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Weather */}
+      {/* <section className="section">
         <h2>Weather</h2>
         <p className="desc">Please note this information may be inaccurate.</p>
         <div className="weather-card glass-card">
@@ -842,7 +1106,7 @@ export default function App() {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
 
       {/* Currency Converter */}
       <section className="section">
@@ -852,13 +1116,21 @@ export default function App() {
         </p>
 
         <div className="glass-card">
-          <input
-            type="number"
-            value={amount}
-            onChange={(e) => setAmount(parseFloat(e.target.value) || 0)}
-            placeholder="Enter amount"
-            className="currency-input"
-          />
+          <div className="currency-input-container">
+            <div className="currency-prefix">
+              <span className="currency-code">🇧🇭 BHD</span>
+            </div>
+            <input
+              type="number"
+              value={amount === 0 ? "" : amount}
+              onChange={(e) => {
+                const val = e.target.value;
+                setAmount(val === "" ? 0 : parseFloat(val));
+              }}
+              placeholder="0.00"
+              className="currency-input"
+            />
+          </div>
           <div className="currency-grid">
             {currenciesForDisplay.map((c) => (
               <div key={c.code} className="currency-item">
@@ -872,30 +1144,11 @@ export default function App() {
         </div>
       </section>
 
-      {/* Local Recommendations */}
-      <section className="section">
-        <h2>Keep it Local</h2>
-        <p className="desc">
-          Discover the best spots in Bahrain curated just for you.
-        </p>
-        <div className="spots-grid">
-          {spots.map((s) => (
-            <div key={s.id} className="spot-card glass-card">
-              <img src={s.img} alt={s.name} />
-              <div className="spot-info">
-                <p className="spot-name">{s.name}</p>
-                <p className="spot-meta">
-                  {s.category} • {s.price}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* Prayer Times */}
       <section className="section">
-        <h2>Prayer Timings & Qibla</h2>
+        <h2>Prayer Timings</h2>
+        <p className="desc">Prayer times for today in Manama, Bahrain.</p>
+
         <div className="prayer-times glass-card">
           {prayers.map((p, i) => (
             <div key={i} className="prayer-time">
@@ -903,7 +1156,7 @@ export default function App() {
               <span>{p.time}</span>
             </div>
           ))}
-          <div className="qibla glass-card">
+          {/* <div className="qibla glass-card">
             <div className="compass-container">
               <div
                 className="compass"
@@ -938,13 +1191,16 @@ export default function App() {
                 </p>
               )}
             </div>
-          </div>
+          </div> */}
         </div>
       </section>
 
       {/* Apps to Download */}
       <section className="section">
         <h2>Essential Apps</h2>
+        <p className="desc">
+          If there's anything you need, these apps have got you covered.
+        </p>
         <div className="apps-scroll">
           {RECOMMENDED_APPS.map((app) => (
             <div key={app.id} className="app-card glass-card">
@@ -956,32 +1212,6 @@ export default function App() {
               />
               <h3 className="app-name">{app.name}</h3>
               <p className="app-description">{app.description}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Participants */}
-      <section className="section">
-        <h2>Meet the Participants</h2>
-        <div className="participants-grid">
-          {PARTICIPANTS.map((participant) => (
-            <div key={participant.id} className="participant-card glass-card">
-              {participant.photo ? (
-                <img
-                  src={participant.photo}
-                  alt={participant.name}
-                  className="participant-photo"
-                  loading="lazy"
-                />
-              ) : (
-                <div className="participant-photo placeholder">👤</div>
-              )}
-              <h3 className="participant-name">{participant.name}</h3>
-              <p className="participant-country">
-                <span>{participant.flag}</span>
-                <span>{participant.country}</span>
-              </p>
             </div>
           ))}
         </div>
