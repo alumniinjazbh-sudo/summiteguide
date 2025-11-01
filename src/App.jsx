@@ -550,6 +550,31 @@ function toRadians(deg) {
   return deg * (Math.PI / 180);
 }
 
+// Time formatting helpers
+function parseEventTime(dateStr, timeStr) {
+  const [startTime] = timeStr.split('-')[0].trim().split(' ');
+  const [hours, minutes] = startTime.split(':').map(n => parseInt(n));
+  const date = new Date(dateStr);
+  date.setHours(hours);
+  date.setMinutes(minutes);
+  return date;
+}
+
+function getCountdown(targetDate) {
+  const now = new Date();
+  const diff = targetDate - now;
+  
+  if (diff <= 0) return null;
+  
+  const hours = Math.floor(diff / (1000 * 60 * 60));
+  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  
+  if (hours > 0) {
+    return `${hours}h ${minutes}m`;
+  }
+  return `${minutes}m`;
+}
+
 // calculate bearing from (lat1, lon1) to (lat2, lon2) - used for qibla
 function bearingBetweenPoints(lat1, lon1, lat2, lon2) {
   const φ1 = toRadians(lat1);
@@ -616,39 +641,47 @@ export default function App() {
   const [, setAnnIndex] = useState(0);
 
   // ---------------- compute next agenda item and ensure first announcement is it ----------------
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 60000); // Update every minute
+    return () => clearInterval(timer);
+  }, []);
+
   useEffect(() => {
     // Find the next upcoming event across all days
-    const now = new Date();
     let nextEvent = null;
+    let nextEventDate = null;
 
     // Iterate through all days to find the next event
     for (const dayEvents of Object.values(agenda)) {
       for (const event of dayEvents) {
-        const eventDate = new Date(event.date + " " + event.time.split(" ")[0]);
-        if (eventDate >= now) {
-          if (
-            !nextEvent ||
-            eventDate <
-              new Date(nextEvent.date + " " + nextEvent.time.split(" ")[0])
-          ) {
+        const eventDate = parseEventTime(event.date, event.time);
+        if (eventDate >= currentTime) {
+          if (!nextEvent || eventDate < nextEventDate) {
             nextEvent = event;
+            nextEventDate = eventDate;
           }
         }
       }
     }
 
-    if (nextEvent) {
+    if (nextEvent && nextEventDate) {
+      const countdown = getCountdown(nextEventDate);
       // create an announcement for it and ensure it's first
       const agendaAnnouncement = {
         id: `agenda-${nextEvent.id}`,
         text: (
           <>
-            <b>Next Up 📌:</b>
+            <b>Next Up 📌 {countdown ? `(in ${countdown})` : ''}</b>
             <br />
             {nextEvent.title}
           </>
         ),
         time: nextEvent.time,
+        eventDate: nextEventDate
       };
 
       // if not already first, place it
@@ -658,12 +691,13 @@ export default function App() {
           (p) => !p.id?.toString().startsWith("agenda-")
         );
         // if already first and same, keep order
-        if (filtered[0] && filtered[0].id === agendaAnnouncement.id)
+        if (filtered[0] && filtered[0].id === agendaAnnouncement.id && 
+            filtered[0].eventDate === agendaAnnouncement.eventDate)
           return prev;
         return [agendaAnnouncement, ...filtered];
       });
     }
-  }, [agenda]);
+  }, [agenda, currentTime]);
 
   // ---------------- Weather fetch (today + tomorrow) using WeatherAPI ----------------
   useEffect(() => {
@@ -953,25 +987,36 @@ export default function App() {
           ))}
         </div>
         <div className="agenda-content glass-card">
-          {agenda[selectedDay]?.map((session) => (
-            <details key={session.id} className="agenda-item">
-              <summary>
-                <span className="agenda-time">{session.time}</span>
-                <span className="agenda-title">{session.title}</span>
-              </summary>
-              <div className="agenda-details">
-                {session.description && (
-                  <div className="agenda-description">
-                    {session.description}
+          {agenda[selectedDay]?.map((session) => {
+            const eventDate = parseEventTime(session.date, session.time);
+            const countdown = getCountdown(eventDate);
+            const status = eventDate > currentTime ? "upcoming" : "past";
+            
+            return (
+              <details key={session.id} className="agenda-item">
+                <summary>
+                  <span className="agenda-time">
+                    {session.time}
+                    {countdown && status === "upcoming" && (
+                      <span className="countdown"> (in {countdown})</span>
+                    )}
+                  </span>
+                  <span className="agenda-title">{session.title}</span>
+                </summary>
+                <div className="agenda-details">
+                  {session.description && (
+                    <div className="agenda-description">
+                      {session.description}
+                    </div>
+                  )}
+                  <div className="agenda-location">
+                    <span>📍</span>
+                    <span>{session.meta?.location || "Location TBA"}</span>
                   </div>
-                )}
-                <div className="agenda-location">
-                  <span>📍</span>
-                  <span>{session.meta?.location || "Location TBA"}</span>
                 </div>
-              </div>
-            </details>
-          ))}
+              </details>
+            );
+          })}
         </div>
       </section>
 
@@ -1050,7 +1095,17 @@ export default function App() {
           </div>
         </div>
         <style>{`
-   
+          .countdown {
+            font-size: 0.9em;
+            color: #BBD153;
+            margin-left: 8px;
+          }
+          
+          .agenda-time {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+          }
         `}</style>
       </section>
 
