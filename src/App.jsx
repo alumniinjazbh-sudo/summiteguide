@@ -37,9 +37,9 @@ const SAMPLE_AGENDA = {
       id: "d1-2",
       date: "Sunday, 02 November 2025",
       time: "19:00-22:00 PM",
-      title: "Free Night: Suggested Connection Dinner",
+      title: "Free Night/Connection Dinner",
       status: "upcoming",
-      meta: { location: "TimeOut Market CC Rooftop" },
+      meta: { location: "Avenues Bahrain" },
     },
   ],
   "Day 2": [
@@ -115,6 +115,14 @@ const SAMPLE_AGENDA = {
       date: "Monday, 03 November 2025",
       time: "17:00 – 20:00 PM",
       title: "INJAZ Bahrain Headquarters Inauguration (Joint event)",
+      status: "upcoming",
+      meta: { location: "INJAZ Bahrain HQ" },
+    },
+    {
+      id: "d2-10",
+      date: "Monday, 03 November 2025",
+      time: "20:00 – 22:00 PM",
+      title: "Networking Dinner",
       status: "upcoming",
       meta: { location: "INJAZ Bahrain HQ" },
     },
@@ -392,7 +400,7 @@ const PARTICIPANTS = [
   },
   {
     id: 14,
-    name: "Anas",
+    name: "Anas Raghib",
     country: "Morocco",
     flag: "🇲🇦",
     photo: "https://res.cloudinary.com/dwqpwi809/image/upload/w_200,h_200,c_fill,q_auto:good/v1761407262/IMG-20251023-WA0108_-_Anas_Raghib_q7qkuk.jpg",
@@ -416,7 +424,7 @@ const PARTICIPANTS = [
     name: "Fatima Turkistani",
     country: "KSA",
     flag: "🇸🇦",
-    photo: "",
+    photo: "https://res.cloudinary.com/dwqpwi809/image/upload/w_200,h_200,c_fill,q_auto:good/v1762025592/photo-output_-_Fatimah_Turkistani_htvn9u.jpg",
   },
   {
     id: 11,
@@ -441,10 +449,10 @@ const PARTICIPANTS = [
   },
   {
     id: 7,
-    name: "Muhamad Olabi",
+    name: "Omar Kudaih",
     country: "UAE",
     flag: "🇦🇪",
-    photo: "",
+    photo: "https://res.cloudinary.com/dwqpwi809/image/upload/w_200,h_200,c_fill,q_auto:good/v1762025592/IMG_20251030_000816_-_Omar_Dia_nlokyd.jpg",
   },
   {
     id: 1,
@@ -463,10 +471,10 @@ const PARTICIPANTS = [
   },
   {
     id: 13,
-    name: "Reema Al-Kuwari",
+    name: "Abdullah AlKiswani",
     country: "Qatar",
     flag: "🇶🇦",
-    photo: "",
+    photo: "https://res.cloudinary.com/dwqpwi809/image/upload/w_200,h_200,c_fill,q_auto:good/v1762025559/IMG_2711_-_Abdullah_Alkiswani_yl83lh.jpg",
   },
   {
     id: 12,
